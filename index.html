@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0b0c0d">
-  <meta name="kordz-site-version" content="9.4 - correction validation Tally">
+  <meta name="kordz-site-version" content="9.5 - acces exclusivement apres Tally">
   <meta name="description" content="Kord'z, l'atelier guitare sur Windows et Android : apprenez les accords et les gammes, travaillez votre jeu, créez vos morceaux et vos solos.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Kord’z — Apprends. Joue. Crée.">
@@ -137,9 +137,6 @@
 .kordz-tally-status{font-size:12px!important;color:#f4d397!important;line-height:1.5!important}
 .kordz-tally-help{font-size:11px!important;line-height:1.7!important;color:#d9c6a5!important}
 .kordz-tally-help a{color:#f4d397;text-decoration:underline}
-.kordz-tally-backup{cursor:pointer;font:inherit;font-size:11px;color:#d8b77e;background:transparent;border:0;text-decoration:underline;padding:4px 0}
-.kordz-tally-backup:focus-visible{outline:2px solid #e2b66b;outline-offset:3px}
-#kordz-gate-fallback[hidden]{display:none!important}
 @media(max-width:560px){.kordz-tally-frame{height:430px}}
 </style>
 
@@ -224,7 +221,7 @@
             <p>Retrouve Kord’z 4.9.18 sur ton ordinateur Windows 64 bits et sur ton téléphone ou ta tablette Android.</p>
           </div>
           <div class="download-panels">
-            <div class="kordz-email-gate" id="kordz-email-gate" hidden>
+            <div class="kordz-email-gate" id="kordz-email-gate">
               <p class="kordz-gate-kicker">KORD’Z 4.9.18 · ACCÈS GRATUIT</p>
               <h3>Débloque tes téléchargements.</h3>
               <p>Indique ton adresse e-mail ci-dessous. Dès l’envoi réussi du formulaire, les téléchargements Windows et Android apparaîtront automatiquement, sans compte ni paiement.</p>
@@ -236,16 +233,14 @@
               </div>
               <p class="kordz-tally-status" id="kordz-gate-status" role="status" aria-live="polite">Remplis puis valide le formulaire. Les boutons apparaissent dès confirmation de Tally.</p>
               <p class="kordz-tally-help">Les réponses sont enregistrées par Tally pour suivre la diffusion de Kord’z, sans inscription à une newsletter. <a href="#confidentialite">Confidentialité</a> · <a href="https://tally.so/r/yXXBVX" target="_blank" rel="noopener noreferrer">Ouvrir le formulaire séparément</a>.</p>
-              <button type="button" id="kordz-tally-backup" class="kordz-tally-backup">Le formulaire ne fonctionne pas ? Accéder aux téléchargements</button>
             </div>
             <div class="kordz-gate-success" id="kordz-gate-success" role="status" aria-live="polite" hidden><strong>Formulaire envoyé !</strong> Tu peux maintenant télécharger Kord’z pour Windows ou Android.</div>
-            <p class="download-note" id="kordz-gate-fallback" role="status" hidden>Formulaire indisponible : téléchargements gratuits disponibles sans inscription.</p>
-            <div class="download-panel">
+            <div class="download-panel" hidden>
               <span class="device-icon" aria-hidden="true">▣</span>
               <div><strong>Windows 64 bits</strong><small>Version 4.9.18 · Kordz.exe · 8,3 Mo</small></div>
               <a class="download-action is-ready" data-kordz-platform="windows" href="https://github.com/fredrcraptor-cmd/kordz/releases/download/v4.9.18/Kordz.exe" rel="noopener noreferrer" aria-label="Télécharger Kord’z 4.9.18 pour Windows 64 bits">Télécharger ↓</a>
             </div>
-            <div class="download-panel">
+            <div class="download-panel" hidden>
               <span class="device-icon" aria-hidden="true">▯</span>
               <div><strong>Android</strong><small>Version 4.9.18 · APK · 2,3 Mo</small></div>
               <a class="download-action is-ready" data-kordz-platform="android" href="https://github.com/fredrcraptor-cmd/kordz/releases/download/v4.9.18/kordz4918.apk" rel="noopener noreferrer" aria-label="Télécharger Kord’z 4.9.18 pour Android">Télécharger ↓</a>
@@ -308,7 +303,7 @@
     <h2>Adresse e-mail pour télécharger</h2>
     <p>Le formulaire intégré est fourni par <a href="https://tally.so/" target="_blank" rel="noopener noreferrer">Tally</a>. Les adresses e-mail et les données techniques nécessaires sont traitées par Tally et consultables par le responsable du projet Kord’z pour enregistrer les demandes d’accès au logiciel et suivre sa diffusion. Aucune newsletter ou prospection n’est envoyée à partir de ces adresses. L’adresse n’est pas vérifiée par le site.</p>
     <p>Le formulaire charge des ressources Tally susceptibles de traiter des données techniques. Consulte la <a href="https://tally.so/help/privacy-policy" target="_blank" rel="noopener noreferrer">politique de confidentialité de Tally</a>. Après soumission réussie, un indicateur daté d’accès est stocké dans le navigateur pendant 30 jours, sans stocker l’adresse e-mail. Il est supprimable avec les données locales du site.</p>
-    <p>Les adresses seront supprimées lorsqu’elles ne sont plus nécessaires, avec un objectif de conservation maximale de 12 mois. Pour exercer tes droits, contacte <a href="mailto:kordzguitar@gmail.com">kordzguitar@gmail.com</a>. En cas de panne du formulaire, un lien permet de télécharger sans fournir d’adresse e-mail.</p>
+    <p>Les adresses seront supprimées lorsqu’elles ne sont plus nécessaires, avec un objectif de conservation maximale de 12 mois. Pour exercer tes droits, contacte <a href="mailto:kordzguitar@gmail.com">kordzguitar@gmail.com</a>. Si le formulaire ne fonctionne pas, tu peux contacter l’éditeur du projet.</p>
     <p>Les fichiers sont publics sur GitHub Releases : le formulaire contrôle seulement l’affichage des boutons du site, pas l’accès direct aux fichiers.</p>
     <h2>Échanges par e-mail</h2>
     <p>Si tu écris à <a href="mailto:kordzguitar@gmail.com">kordzguitar@gmail.com</a>, ton adresse e-mail et les informations figurant dans ton message servent au traitement de ta demande et à la réponse qui peut lui être donnée. Il n’existe pas de formulaire de contact sur le site : l’échange passe par les services de messagerie utilisés. La durée de conservation de ces échanges doit rester limitée à ce qui est nécessaire à leur traitement et à leurs éventuelles suites.</p>
@@ -364,17 +359,15 @@ if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) {
 
 /* Accès après le véritable événement de confirmation Tally.FormSubmitted.
    Les valeurs des champs restent chez Tally : aucune adresse n'est journalisée ici.
-   L'accès de secours reste possible si le service est indisponible. */
+   Aucun accès de secours n’est proposé sur le site. */
 (function setupKordzTally(){
   const gate=document.getElementById('kordz-email-gate');
   const iframe=document.getElementById('kordz-tally-frame');
   const success=document.getElementById('kordz-gate-success');
-  const fallback=document.getElementById('kordz-gate-fallback');
-  const backup=document.getElementById('kordz-tally-backup');
   const status=document.getElementById('kordz-gate-status');
   const panels=document.querySelectorAll('#telecharger .download-panel');
   const info=document.getElementById('downloadStatus');
-  if(!gate||!iframe||!success||!fallback||!backup||!status||panels.length!==2)return;
+  if(!gate||!iframe||!success||!status||panels.length!==2)return;
   const formId='yXXBVX';
   const key='kordz-tally-access-yXXBVX-v1';
   const maxAge=30*24*60*60*1000;
@@ -395,14 +388,8 @@ if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) {
 
   gate.hidden=false;
   success.hidden=true;
-  fallback.hidden=true;
   panels.forEach(panel=>panel.hidden=true);
   if(info)info.textContent='Valide le formulaire Tally ci-dessus pour accéder aux téléchargements gratuits Windows et Android.';
-
-  backup.addEventListener('click',()=>{
-    fallback.hidden=false;
-    unlock(false);
-  });
 
   // Une confirmation de Tally signifie que le serveur a accepté le formulaire.
   // Ne pas dépendre de la forme de fields[] : Tally utilise notamment field.value,
