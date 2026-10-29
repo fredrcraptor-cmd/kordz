@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0b0c0d">
-  <meta name="kordz-site-version" content="9.2 - secours telechargements et Formspree">
+  <meta name="kordz-site-version" content="9.3 - formulaire email Tally">
   <meta name="description" content="Kord'z, l'atelier guitare sur Windows et Android : apprenez les accords et les gammes, travaillez votre jeu, créez vos morceaux et vos solos.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Kord’z — Apprends. Joue. Crée.">
@@ -111,7 +111,7 @@
 .kordz-stats-note{font-size:10px!important;line-height:1.55!important;color:#ccb58b!important;margin:13px 0 0!important;text-align:center;max-width:none!important}
 @media(max-width:560px){.kordz-download-stats{padding:14px 10px 12px}.kordz-stats-heading{font-size:8px!important}.kordz-stat strong{font-size:23px}.kordz-stat span{font-size:10px}}
 
-/* Formulaire d'accès aux téléchargements Kord'z (HTML statique + FormSubmit) */
+/* Formulaire d'accès aux téléchargements Kord'z avec Tally */
 .kordz-email-gate{background:linear-gradient(140deg,#251f17,#151411);border:1px solid #8d6c43;padding:24px 22px;box-shadow:0 15px 45px #0003;margin-bottom:12px;color:#f3e4c9}
 .kordz-email-gate h3{font-size:clamp(22px,2.4vw,30px);font-weight:800;line-height:1.18;margin:5px 0 11px;color:#fff0d1}
 .kordz-email-gate>p,.kordz-email-gate form>p{font-size:12px;line-height:1.65;color:#cfbaa0;margin:0 0 15px}
@@ -131,6 +131,16 @@
 .kordz-gate-success strong{color:#fff0ce}
 .kordz-email-gate[hidden],.kordz-gate-success[hidden],.download-panel[hidden]{display:none!important}
 @media(max-width:560px){.kordz-email-gate{padding:20px 14px}.kordz-gate-fields{flex-direction:column}.kordz-gate-fields button{white-space:normal}.kordz-email-gate h3{font-size:23px}}
+
+.kordz-tally-shell{border:1px solid #755631;border-radius:6px;background:#16130f;padding:8px 3px;overflow:hidden}
+.kordz-tally-frame{display:block;width:100%;height:390px;min-height:220px;border:0;background:transparent}
+.kordz-tally-status{font-size:12px!important;color:#f4d397!important;line-height:1.5!important}
+.kordz-tally-help{font-size:11px!important;line-height:1.7!important;color:#d9c6a5!important}
+.kordz-tally-help a{color:#f4d397;text-decoration:underline}
+.kordz-tally-backup{cursor:pointer;font:inherit;font-size:11px;color:#d8b77e;background:transparent;border:0;text-decoration:underline;padding:4px 0}
+.kordz-tally-backup:focus-visible{outline:2px solid #e2b66b;outline-offset:3px}
+#kordz-gate-fallback[hidden]{display:none!important}
+@media(max-width:560px){.kordz-tally-frame{height:430px}}
 </style>
 
 
@@ -217,25 +227,19 @@
             <div class="kordz-email-gate" id="kordz-email-gate" hidden>
               <p class="kordz-gate-kicker">KORD’Z 4.9.18 · ACCÈS GRATUIT</p>
               <h3>Débloque tes téléchargements.</h3>
-              <p>Renseigne ton adresse e-mail pour accéder immédiatement aux versions Windows et Android, sans créer de compte.</p>
-              <form id="kordz-email-form" method="POST" action="#telecharger">
-                <input type="hidden" name="_subject" value="Kord’z - demande de téléchargement 4.9.18">
-                
-                
-                
-                <input type="hidden" name="demande" value="Accès gratuit aux téléchargements Windows et Android - sans abonnement newsletter">
-                <label class="kordz-gate-label" for="kordz-download-email">Ton adresse e-mail</label>
-                <div class="kordz-gate-fields">
-                  <input type="email" name="email" id="kordz-download-email" placeholder="tonadresse@exemple.fr" autocomplete="email" maxlength="254" required aria-describedby="kordz-gate-privacy">
-                  <button type="submit" id="kordz-gate-submit">Accéder aux téléchargements ↓</button>
-                </div>
-                <div class="kordz-gate-honeypot" aria-hidden="true"><label for="kordz-gate-honey">Laisser ce champ vide</label><input type="text" id="kordz-gate-honey" name="_honey" tabindex="-1" autocomplete="off"></div>
-                <p class="kordz-gate-privacy" id="kordz-gate-privacy">Ton e-mail sera transmis au service Formspree et à l'éditeur de Kord’z pour enregistrer ta demande d'accès. Il ne sert pas à t'inscrire à une newsletter. <a href="#confidentialite">Voir la politique de confidentialité</a>.</p>
-                <p class="kordz-gate-status" id="kordz-gate-status" role="status" aria-live="polite">Après envoi, tu reviendras sur Kord’z avec les boutons de téléchargement affichés. Lors du premier essai, l’éditeur du site doit activer le formulaire depuis sa boîte e-mail.</p>
-              </form>
+              <p>Indique ton adresse e-mail ci-dessous. Dès l’envoi réussi du formulaire, les téléchargements Windows et Android apparaîtront automatiquement, sans compte ni paiement.</p>
+              <div class="kordz-tally-shell">
+                <iframe id="kordz-tally-frame" class="kordz-tally-frame" title="Formulaire de téléchargement Kord’z"
+                  src="https://tally.so/embed/yXXBVX?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+                  data-tally-src="https://tally.so/embed/yXXBVX?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+                  loading="lazy" width="100%" height="390" frameborder="0" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+              </div>
+              <p class="kordz-tally-status" id="kordz-gate-status" role="status" aria-live="polite">Valide le formulaire pour accéder à Kord’z.</p>
+              <p class="kordz-tally-help">Ton e-mail est enregistré par Tally pour suivre la diffusion de Kord’z, sans inscription à une newsletter. <a href="#confidentialite">Confidentialité</a> · <a href="https://tally.so/r/yXXBVX" target="_blank" rel="noopener noreferrer">Ouvrir le formulaire séparément</a>.</p>
+              <button type="button" id="kordz-tally-backup" class="kordz-tally-backup">Formulaire indisponible ? Téléchargement de secours</button>
             </div>
-            <div class="kordz-gate-success" id="kordz-gate-success" role="status" aria-live="polite" hidden><strong>Adresse enregistrée !</strong> Choisis maintenant ta version Windows ou Android ci-dessous.</div>
-            <p id="kordz-gate-fallback" class="download-note" role="status">L’inscription par e-mail est momentanément indisponible. Les téléchargements restent libres et gratuits.</p>
+            <div class="kordz-gate-success" id="kordz-gate-success" role="status" aria-live="polite" hidden><strong>Adresse enregistrée !</strong> Choisis Windows ou Android ci-dessous.</div>
+            <p class="download-note" id="kordz-gate-fallback" role="status" hidden>Formulaire indisponible : téléchargements gratuits disponibles sans inscription.</p>
             <div class="download-panel">
               <span class="device-icon" aria-hidden="true">▣</span>
               <div><strong>Windows 64 bits</strong><small>Version 4.9.18 · Kordz.exe · 8,3 Mo</small></div>
@@ -256,7 +260,7 @@
               </div>
               <p class="kordz-stats-note" id="kordz-stats-status" role="status" aria-live="polite">Chargement des statistiques GitHub…</p>
             </div>
-            <p class="download-note" id="downloadStatus" role="status" aria-live="polite">Versions officielles Kord’z 4.9.18 disponibles sur GitHub Releases.</p>
+            <p class="download-note" id="downloadStatus" role="status" aria-live="polite">Renseigne ton e-mail via Tally pour accéder aux téléchargements Kord’z 4.9.18.</p>
             <p class="download-note download-help">Windows : lancer Kordz.exe. Android : télécharger puis ouvrir le fichier APK ; Android peut demander l'autorisation d'installer une application provenant du navigateur.</p>
           </div>
         </div>
@@ -299,20 +303,19 @@
     <h2>Responsable du contact</h2>
     <p>Le site est édité à titre non professionnel sous le nom du projet <strong>Kord’z</strong>. Pour toute question relative aux données personnelles communiquées au projet, écris à <a href="mailto:kordzguitar@gmail.com">kordzguitar@gmail.com</a>.</p>
     <h2>Navigation et hébergement</h2>
-    <p>Le site est statique : il ne propose pas de compte utilisateur et n’intègre ni publicité ni outil publicitaire de suivi. Le formulaire éventuel d’accès aux téléchargements est décrit ci-dessous. Il n’installe pas de cookie de suivi. Un indicateur technique conservé dans le stockage local de ton navigateur évite de te redemander ton e-mail après un accès réussi ; il ne contient pas ton adresse e-mail. Tu peux le supprimer en effaçant les données du site dans ton navigateur. L’hébergeur GitHub peut traiter des données techniques de connexion, notamment l’adresse IP, conformément à ses propres règles.</p>
-    <p>Les téléchargements redirigent vers GitHub Releases. Le compteur du site interroge l’API publique de GitHub pour obtenir les nombres de téléchargements des deux fichiers. Cette requête peut transmettre à GitHub des données techniques de connexion, notamment l’adresse IP ; aucun profilage ni cookie de suivi n’est ajouté par Kord’z à cette fin. Consulte la <a href="https://docs.github.com/fr/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">politique de confidentialité de GitHub</a> pour les traitements réalisés par cette plateforme.</p>
-
-    <h2>Adresse e-mail et téléchargements</h2>
-    <p>Lorsque le formulaire d’inscription n’est pas actif, les téléchargements sont accessibles directement et aucune adresse e-mail n’est envoyée via ce formulaire.</p>
-    <p>Lorsque le formulaire est actif, l’adresse saisie est transmise au prestataire <a href="https://formspree.io/" target="_blank" rel="noopener noreferrer">Formspree</a> et au projet Kord’z (<a href="mailto:kordzguitar@gmail.com">kordzguitar@gmail.com</a>) pour enregistrer la demande de téléchargement et suivre la diffusion du logiciel. Elle n’est pas utilisée pour une newsletter ou de la publicité. Cette collecte ne vérifie pas la propriété de l’adresse.</p>
-    <p>Le responsable du site s’engage à supprimer les adresses devenues inutiles, avec un objectif de conservation maximale de 12 mois. Pour demander leur suppression ou exercer tes autres droits, écris à l’adresse de contact. Consulte également la <a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener noreferrer">politique de confidentialité de Formspree</a>.</p>
-    <p>Les fichiers restent hébergés publiquement sur GitHub Releases. Le formulaire limite l’affichage des boutons sur le site, mais ne verrouille pas les fichiers.</p>
+    <p>Le site Kord’z est statique et ne propose pas de compte utilisateur, de publicité ou d’outil de suivi publicitaire. L’hébergeur GitHub peut traiter des données techniques de navigation, conformément à ses propres règles.</p>
+    <p>Les fichiers sont distribués par GitHub Releases. Le compteur des téléchargements interroge l’API GitHub et peut transmettre des données techniques de connexion à ce fournisseur. Consulte la <a href="https://docs.github.com/fr/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">politique de confidentialité GitHub</a>.</p>
+    <h2>Adresse e-mail pour télécharger</h2>
+    <p>Le formulaire intégré est fourni par <a href="https://tally.so/" target="_blank" rel="noopener noreferrer">Tally</a>. Les adresses e-mail et les données techniques nécessaires sont traitées par Tally et consultables par le responsable du projet Kord’z pour enregistrer les demandes d’accès au logiciel et suivre sa diffusion. Aucune newsletter ou prospection n’est envoyée à partir de ces adresses. L’adresse n’est pas vérifiée par le site.</p>
+    <p>Le formulaire charge des ressources Tally susceptibles de traiter des données techniques. Consulte la <a href="https://tally.so/help/privacy-policy" target="_blank" rel="noopener noreferrer">politique de confidentialité de Tally</a>. Après soumission réussie, un indicateur daté d’accès est stocké dans le navigateur pendant 30 jours, sans stocker l’adresse e-mail. Il est supprimable avec les données locales du site.</p>
+    <p>Les adresses seront supprimées lorsqu’elles ne sont plus nécessaires, avec un objectif de conservation maximale de 12 mois. Pour exercer tes droits, contacte <a href="mailto:kordzguitar@gmail.com">kordzguitar@gmail.com</a>. En cas de panne du formulaire, un lien permet de télécharger sans fournir d’adresse e-mail.</p>
+    <p>Les fichiers sont publics sur GitHub Releases : le formulaire contrôle seulement l’affichage des boutons du site, pas l’accès direct aux fichiers.</p>
     <h2>Échanges par e-mail</h2>
     <p>Si tu écris à <a href="mailto:kordzguitar@gmail.com">kordzguitar@gmail.com</a>, ton adresse e-mail et les informations figurant dans ton message servent au traitement de ta demande et à la réponse qui peut lui être donnée. Il n’existe pas de formulaire de contact sur le site : l’échange passe par les services de messagerie utilisés. La durée de conservation de ces échanges doit rester limitée à ce qui est nécessaire à leur traitement et à leurs éventuelles suites.</p>
     <h2>Exercer tes droits</h2>
     <p>Tu peux demander l’accès, la rectification ou l’effacement de tes données et exercer les autres droits prévus par la réglementation, dans leurs limites applicables, via <a href="mailto:kordzguitar@gmail.com">kordzguitar@gmail.com</a>. Tu peux aussi saisir la <a href="https://www.cnil.fr/fr/plaintes" target="_blank" rel="noopener noreferrer">CNIL</a>.</p>
     <h2>Mise à jour</h2>
-    <p>Cette politique doit être revue si les usages du formulaire ou les services techniques changent, notamment en cas d’envoi futur d’informations par e-mail.</p>
+    <p>Cette politique sera mise à jour si les usages, les prestataires ou les durées de conservation changent.</p>
   </main>
   <p class="container"><a href="#haut" class="text-link">Retour en haut ↑</a></p>
 </section>
@@ -320,11 +323,7 @@
 /* KORD’Z — ADRESSE E-MAIL PUBLIQUE DU SITE
    Pour changer l'adresse, modifie seulement la valeur email ci-dessous.
 */
-window.KORDZ_CONFIG = {
-  email: "kordzguitar@gmail.com",
-  // Ajouter ici l’URL du formulaire créée sur Formspree pour activer la collecte.
-  downloadFormEndpoint: ""
-};
+window.KORDZ_CONFIG = { email: "kordzguitar@gmail.com", downloadFormId: "yXXBVX" };
 
 'use strict';
 const toggle = document.querySelector('.menu-toggle');
@@ -363,49 +362,54 @@ if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) {
 }
 
 
-/* Accès direct en secours tant qu’aucun formulaire Formspree n’est configuré. */
-(function setupKordzDownloadGate(){
+/* Soumission Tally confirmée via message origine/frame/formId et champ e-mail valide. */
+(function setupKordzTally(){
   const gate=document.getElementById('kordz-email-gate');
-  const form=document.getElementById('kordz-email-form');
+  const iframe=document.getElementById('kordz-tally-frame');
   const success=document.getElementById('kordz-gate-success');
   const fallback=document.getElementById('kordz-gate-fallback');
+  const backup=document.getElementById('kordz-tally-backup');
   const status=document.getElementById('kordz-gate-status');
-  const button=document.getElementById('kordz-gate-submit');
   const panels=document.querySelectorAll('#telecharger .download-panel');
-  if(!gate||!form||!success||!fallback||!status||!button||panels.length!==2)return;
-  const url=String(window.KORDZ_CONFIG&&window.KORDZ_CONFIG.downloadFormEndpoint||'').trim();
-  const active=/^https:\/\/formspree\.io\/f\/[a-z0-9]+$/i.test(url);
-  const key='kordz-download-access-v1';
-  const label=document.getElementById('downloadStatus');
-  function showDownloads(saved){
-    gate.hidden=true;
-    panels.forEach(p=>p.hidden=false);
-    success.hidden=!saved;
-    if(label)label.textContent='Téléchargements officiels Kord’z 4.9.18 pour Windows et Android.';
+  const info=document.getElementById('downloadStatus');
+  if(!gate||!iframe||!success||!fallback||!backup||!status||panels.length!==2)return;
+  const formId='yXXBVX', key='kordz-tally-access-yXXBVX-v1', maxAge=2592000000;
+  let unlocked=false;
+  function unlock(saved){
+    if(unlocked)return;
+    unlocked=true;gate.hidden=true;success.hidden=!saved;
+    panels.forEach(panel=>panel.hidden=false);
+    if(info)info.textContent='Téléchargements officiels Kord’z 4.9.18 pour Windows et Android.';
   }
-  if(!active){fallback.hidden=false;showDownloads(false);return;}
-  fallback.hidden=true;
-  try{if(localStorage.getItem(key)==='ok'){showDownloads(true);return;}}catch(_error){}
-  gate.hidden=false;
-  panels.forEach(p=>p.hidden=true);
-  form.action=url;
-  if(label)label.textContent='Renseigne ton adresse e-mail pour accéder aux téléchargements.';
-  form.addEventListener('submit',async event=>{
-    event.preventDefault();
-    if(!form.reportValidity())return;
-    button.disabled=true;
-    status.textContent='Enregistrement de ton adresse…';
-    try{
-      const response=await fetch(url,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
-      if(!response.ok)throw new Error('Enregistrement impossible');
-      try{localStorage.setItem(key,'ok');}catch(_error){}
-      showDownloads(true);
-    }catch(_error){
-      status.textContent='L’enregistrement de ton adresse n’a pas été confirmé. Tu peux tout de même télécharger Kord’z ci-dessous.';
-      fallback.hidden=false;
-      fallback.textContent='Service d’inscription indisponible : téléchargements libres sans enregistrement confirmé.';
-      panels.forEach(p=>p.hidden=false);
-    }finally{button.disabled=false;}
+  try{
+    const t=Number(localStorage.getItem(key));
+    if(t>0&&Date.now()-t>=0&&Date.now()-t<maxAge){unlock(true);return;}
+    localStorage.removeItem(key);
+  }catch(_err){}
+  gate.hidden=false;success.hidden=true;fallback.hidden=true;
+  panels.forEach(panel=>panel.hidden=true);
+  backup.addEventListener('click',()=>{
+    fallback.hidden=false;
+    unlock(false);
+  });
+  window.addEventListener('message',event=>{
+    if(unlocked||event.origin!=='https://tally.so'||event.source!==iframe.contentWindow)return;
+    let packet;
+    try{packet=typeof event.data==='string'?JSON.parse(event.data):event.data;}catch(_err){return;}
+    if(!packet||packet.event!=='Tally.FormSubmitted'||!packet.payload||packet.payload.formId!==formId)return;
+    const fields=Array.isArray(packet.payload.fields)?packet.payload.fields:[];
+    const pattern=new RegExp('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$');
+    const valid=fields.some(field=>{
+      const ans=field&&field.answer;
+      const val=ans&&(typeof ans.value==='string'?ans.value:(typeof ans.raw==='string'?ans.raw:''));
+      return typeof val==='string'&&pattern.test(val.trim());
+    });
+    if(!valid){
+      status.textContent='Soumission reçue, mais aucune adresse e-mail valide détectée. Vérifie le champ e-mail obligatoire du formulaire Tally.';
+      return;
+    }
+    try{localStorage.setItem(key,String(Date.now()));}catch(_err){}
+    unlock(true);
   });
 })();
 
@@ -437,5 +441,6 @@ if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) {
   }
 })();
 </script>
+<script src="https://tally.so/widgets/embed.js" defer onload="if(window.Tally)window.Tally.loadEmbeds()"></script>
 </body>
 </html>
