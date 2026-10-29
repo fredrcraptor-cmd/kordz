@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0b0c0d">
-  <meta name="kordz-site-version" content="8.8 - mentions légales projet personnel gratuit">
+  <meta name="kordz-site-version" content="8.9 - compteur de telechargements GitHub Releases">
   <meta name="description" content="Kord'z, l'atelier guitare sur Windows et Android : apprenez les accords et les gammes, travaillez votre jeu, créez vos morceaux et vos solos.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Kord’z — Apprends. Joue. Crée.">
@@ -98,6 +98,18 @@
 .download-action.is-ready:hover,.download-action.is-ready:focus-visible{background:#fff2da}
 .download-help{font-size:10px!important;margin-top:1px!important}
 @media(max-width:560px){.download-panel{gap:10px;padding:15px 12px}.download-panel strong{font-size:14px}.download-panel small{font-size:10px}.download-action{font-size:10px;min-width:86px;padding:9px 7px}.device-icon{font-size:21px}}
+
+/* Compteurs de téléchargements GitHub Releases : style sombre et or */
+.kordz-download-stats{background:#211b15;color:#f4dfb3;border:1px solid #70573a;padding:17px 18px 13px;margin:6px 0}
+.kordz-stats-heading{font-size:9px!important;font-weight:850;letter-spacing:.15em;color:#d9b77a!important;margin:0 0 15px!important;line-height:1.4!important}
+.kordz-stats-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.kordz-stat{display:flex;flex-direction:column;gap:5px;align-items:center;text-align:center;min-width:0;border-right:1px solid #655039;padding:2px 4px 5px}
+.kordz-stat:last-child{border-right:0}
+.kordz-stat span{font-size:11px;color:#d2b689;letter-spacing:.02em}
+.kordz-stat strong{font-size:27px;font-weight:850;color:#fff1cf;line-height:1.22;font-variant-numeric:tabular-nums}
+.kordz-stat-total strong{color:#e8b96b}
+.kordz-stats-note{font-size:10px!important;line-height:1.55!important;color:#ccb58b!important;margin:13px 0 0!important;text-align:center;max-width:none!important}
+@media(max-width:560px){.kordz-download-stats{padding:14px 10px 12px}.kordz-stats-heading{font-size:8px!important}.kordz-stat strong{font-size:23px}.kordz-stat span{font-size:10px}}
 </style>
 
 
@@ -191,6 +203,16 @@
               <div><strong>Android</strong><small>Version 4.9.18 · APK · 2,3 Mo</small></div>
               <a class="download-action is-ready" data-kordz-platform="android" href="https://github.com/fredrcraptor-cmd/kordz/releases/download/v4.9.18/kordz4918.apk" rel="noopener noreferrer" aria-label="Télécharger Kord’z 4.9.18 pour Android">Télécharger ↓</a>
             </div>
+            
+            <div class="kordz-download-stats" id="kordz-download-stats" role="group" aria-label="Compteur des téléchargements de la version 4.9.18">
+              <p class="kordz-stats-heading">KORD’Z 4.9.18 · TÉLÉCHARGEMENTS</p>
+              <div class="kordz-stats-grid">
+                <div class="kordz-stat"><span>Windows</span><strong id="kordz-count-windows" aria-label="Téléchargements Windows">—</strong></div>
+                <div class="kordz-stat"><span>Android</span><strong id="kordz-count-android" aria-label="Téléchargements Android">—</strong></div>
+                <div class="kordz-stat kordz-stat-total"><span>Total</span><strong id="kordz-count-total" aria-label="Téléchargements au total">—</strong></div>
+              </div>
+              <p class="kordz-stats-note" id="kordz-stats-status" role="status" aria-live="polite">Chargement des statistiques GitHub…</p>
+            </div>
             <p class="download-note" id="downloadStatus" role="status" aria-live="polite">Téléchargements officiels Kord’z 4.9.18 disponibles pour Windows et Android. Fichiers hébergés sur GitHub Releases.</p>
             <p class="download-note download-help">Windows : lancer Kordz.exe. Android : télécharger puis ouvrir le fichier APK ; Android peut demander l'autorisation d'installer une application provenant du navigateur.</p>
           </div>
@@ -235,7 +257,7 @@
     <p>Le site est édité à titre non professionnel sous le nom du projet <strong>Kord’z</strong>. Pour toute question relative aux données personnelles communiquées au projet, écris à <a href="mailto:kordzguitar@gmail.com">kordzguitar@gmail.com</a>.</p>
     <h2>Navigation et hébergement</h2>
     <p>Le site est statique : il ne propose ni compte utilisateur, ni formulaire de création de profil, ni publicité ou outil statistique volontairement intégré à ses pages. Il n’installe pas volontairement de cookie de suivi. L’hébergeur GitHub peut traiter des données techniques de connexion, notamment l’adresse IP, conformément à ses propres règles.</p>
-    <p>Les téléchargements redirigent vers GitHub Releases. Consulte la <a href="https://docs.github.com/fr/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">politique de confidentialité de GitHub</a> pour les traitements réalisés par cette plateforme.</p>
+    <p>Les téléchargements redirigent vers GitHub Releases. Le compteur du site interroge l’API publique de GitHub pour obtenir les nombres de téléchargements des deux fichiers. Cette requête peut transmettre à GitHub des données techniques de connexion, notamment l’adresse IP ; aucun profilage ni cookie de suivi n’est ajouté par Kord’z à cette fin. Consulte la <a href="https://docs.github.com/fr/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">politique de confidentialité de GitHub</a> pour les traitements réalisés par cette plateforme.</p>
     <h2>Échanges par e-mail</h2>
     <p>Si tu écris à <a href="mailto:kordzguitar@gmail.com">kordzguitar@gmail.com</a>, ton adresse e-mail et les informations figurant dans ton message servent au traitement de ta demande et à la réponse qui peut lui être donnée. Il n’existe pas de formulaire de contact sur le site : l’échange passe par les services de messagerie utilisés. La durée de conservation de ces échanges doit rester limitée à ce qui est nécessaire à leur traitement et à leurs éventuelles suites.</p>
     <h2>Exercer tes droits</h2>
@@ -288,6 +310,34 @@ if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) {
     el.removeAttribute('aria-disabled');
   });
 }
+
+/* Statistiques publiques GitHub Releases. Aucun cookie, aucun suivi individuel. */
+(async function loadKordzDownloadCounts(){
+  const info=document.getElementById('kordz-stats-status');
+  const windows=document.getElementById('kordz-count-windows');
+  const android=document.getElementById('kordz-count-android');
+  const total=document.getElementById('kordz-count-total');
+  if(!info||!windows||!android||!total)return;
+  try{
+    const response=await fetch('https://api.github.com/repos/fredrcraptor-cmd/kordz/releases/tags/v4.9.18',{headers:{'Accept':'application/vnd.github+json'}});
+    if(!response.ok)throw new Error('GitHub indisponible');
+    const release=await response.json();
+    if(!release||release.draft||!Array.isArray(release.assets))throw new Error('Version indisponible');
+    const count=(filename)=>{
+      const asset=release.assets.find(a=>a.name===filename&&a.state==='uploaded');
+      if(!asset||!Number.isSafeInteger(asset.download_count)||asset.download_count<0)throw new Error('Compteur indisponible');
+      return asset.download_count;
+    };
+    const w=count('Kordz.exe'), a=count('kordz4918.apk');
+    const fmt=n=>n.toLocaleString('fr-FR');
+    windows.textContent=fmt(w);
+    android.textContent=fmt(a);
+    total.textContent=fmt(w+a);
+    info.textContent='Données GitHub Releases · actualisées au chargement de la page';
+  }catch(error){
+    info.textContent='Statistiques temporairement indisponibles. Les téléchargements restent accessibles.';
+  }
+})();
 </script>
 </body>
 </html>
