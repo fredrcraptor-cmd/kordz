@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0b0c0d">
-  <meta name="kordz-site-version" content="9.3 - formulaire email Tally">
+  <meta name="kordz-site-version" content="9.4 - correction validation Tally">
   <meta name="description" content="Kord'z, l'atelier guitare sur Windows et Android : apprenez les accords et les gammes, travaillez votre jeu, créez vos morceaux et vos solos.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Kord’z — Apprends. Joue. Crée.">
@@ -234,11 +234,11 @@
                   data-tally-src="https://tally.so/embed/yXXBVX?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
                   loading="lazy" width="100%" height="390" frameborder="0" referrerpolicy="strict-origin-when-cross-origin"></iframe>
               </div>
-              <p class="kordz-tally-status" id="kordz-gate-status" role="status" aria-live="polite">Valide le formulaire pour accéder à Kord’z.</p>
-              <p class="kordz-tally-help">Ton e-mail est enregistré par Tally pour suivre la diffusion de Kord’z, sans inscription à une newsletter. <a href="#confidentialite">Confidentialité</a> · <a href="https://tally.so/r/yXXBVX" target="_blank" rel="noopener noreferrer">Ouvrir le formulaire séparément</a>.</p>
-              <button type="button" id="kordz-tally-backup" class="kordz-tally-backup">Formulaire indisponible ? Téléchargement de secours</button>
+              <p class="kordz-tally-status" id="kordz-gate-status" role="status" aria-live="polite">Remplis puis valide le formulaire. Les boutons apparaissent dès confirmation de Tally.</p>
+              <p class="kordz-tally-help">Les réponses sont enregistrées par Tally pour suivre la diffusion de Kord’z, sans inscription à une newsletter. <a href="#confidentialite">Confidentialité</a> · <a href="https://tally.so/r/yXXBVX" target="_blank" rel="noopener noreferrer">Ouvrir le formulaire séparément</a>.</p>
+              <button type="button" id="kordz-tally-backup" class="kordz-tally-backup">Le formulaire ne fonctionne pas ? Accéder aux téléchargements</button>
             </div>
-            <div class="kordz-gate-success" id="kordz-gate-success" role="status" aria-live="polite" hidden><strong>Adresse enregistrée !</strong> Choisis Windows ou Android ci-dessous.</div>
+            <div class="kordz-gate-success" id="kordz-gate-success" role="status" aria-live="polite" hidden><strong>Formulaire envoyé !</strong> Tu peux maintenant télécharger Kord’z pour Windows ou Android.</div>
             <p class="download-note" id="kordz-gate-fallback" role="status" hidden>Formulaire indisponible : téléchargements gratuits disponibles sans inscription.</p>
             <div class="download-panel">
               <span class="device-icon" aria-hidden="true">▣</span>
@@ -362,7 +362,9 @@ if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) {
 }
 
 
-/* Soumission Tally confirmée via message origine/frame/formId et champ e-mail valide. */
+/* Accès après le véritable événement de confirmation Tally.FormSubmitted.
+   Les valeurs des champs restent chez Tally : aucune adresse n'est journalisée ici.
+   L'accès de secours reste possible si le service est indisponible. */
 (function setupKordzTally(){
   const gate=document.getElementById('kordz-email-gate');
   const iframe=document.getElementById('kordz-tally-frame');
@@ -373,43 +375,53 @@ if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) {
   const panels=document.querySelectorAll('#telecharger .download-panel');
   const info=document.getElementById('downloadStatus');
   if(!gate||!iframe||!success||!fallback||!backup||!status||panels.length!==2)return;
-  const formId='yXXBVX', key='kordz-tally-access-yXXBVX-v1', maxAge=2592000000;
+  const formId='yXXBVX';
+  const key='kordz-tally-access-yXXBVX-v1';
+  const maxAge=30*24*60*60*1000;
   let unlocked=false;
   function unlock(saved){
     if(unlocked)return;
-    unlocked=true;gate.hidden=true;success.hidden=!saved;
+    unlocked=true;
+    gate.hidden=true;
+    success.hidden=!saved;
     panels.forEach(panel=>panel.hidden=false);
     if(info)info.textContent='Téléchargements officiels Kord’z 4.9.18 pour Windows et Android.';
   }
   try{
     const t=Number(localStorage.getItem(key));
-    if(t>0&&Date.now()-t>=0&&Date.now()-t<maxAge){unlock(true);return;}
+    if(Number.isFinite(t)&&t>0&&Date.now()-t>=0&&Date.now()-t<maxAge){unlock(true);return;}
     localStorage.removeItem(key);
   }catch(_err){}
-  gate.hidden=false;success.hidden=true;fallback.hidden=true;
+
+  gate.hidden=false;
+  success.hidden=true;
+  fallback.hidden=true;
   panels.forEach(panel=>panel.hidden=true);
+  if(info)info.textContent='Valide le formulaire Tally ci-dessus pour accéder aux téléchargements gratuits Windows et Android.';
+
   backup.addEventListener('click',()=>{
     fallback.hidden=false;
     unlock(false);
   });
+
+  // Une confirmation de Tally signifie que le serveur a accepté le formulaire.
+  // Ne pas dépendre de la forme de fields[] : Tally utilise notamment field.value,
+  // et certains formulaires n'incluent pas ces valeurs dans le même format.
+  function submitted(payload){
+    if(unlocked||!payload||String(payload.formId||'')!==formId)return;
+    try{localStorage.setItem(key,String(Date.now()));}catch(_err){}
+    unlock(true);
+  }
   window.addEventListener('message',event=>{
     if(unlocked||event.origin!=='https://tally.so'||event.source!==iframe.contentWindow)return;
     let packet;
     try{packet=typeof event.data==='string'?JSON.parse(event.data):event.data;}catch(_err){return;}
-    if(!packet||packet.event!=='Tally.FormSubmitted'||!packet.payload||packet.payload.formId!==formId)return;
-    const fields=Array.isArray(packet.payload.fields)?packet.payload.fields:[];
-    const pattern=new RegExp('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$');
-    const valid=fields.some(field=>{
-      const ans=field&&field.answer;
-      const val=ans&&(typeof ans.value==='string'?ans.value:(typeof ans.raw==='string'?ans.raw:''));
-      return typeof val==='string'&&pattern.test(val.trim());
-    });
-    if(!valid){
-      status.textContent='Soumission reçue, mais aucune adresse e-mail valide détectée. Vérifie le champ e-mail obligatoire du formulaire Tally.';
-      return;
-    }
-    try{localStorage.setItem(key,String(Date.now()));}catch(_err){}
-    unlock(true);
+    if(!packet||packet.event!=='Tally.FormSubmitted')return;
+    submitted(packet.payload||packet.data);
+  });
+  // Le script officiel Tally peut également émettre cet événement directement.
+  window.addEventListener('Tally.FormSubmitted',event=>{
+    submitted(event&&event.detail);
   });
 })();
 
