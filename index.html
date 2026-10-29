@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0b0c0d">
-  <meta name="kordz-site-version" content="8.5 - téléchargements via GitHub Releases">
+  <meta name="kordz-site-version" content="8.6 - liens directs de téléchargement Windows Android">
   <meta name="description" content="Kord'z, l'atelier guitare sur Windows et Android : apprenez les accords et les gammes, travaillez votre jeu, créez vos morceaux et vos solos.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Kord’z — Apprends. Joue. Crée.">
@@ -183,15 +183,15 @@
           <div class="download-panels">
             <div class="download-panel">
               <span class="device-icon" aria-hidden="true">▣</span>
-              <div><strong>Windows 64 bits</strong><small>Version 4.9.18 · Kordz.exe · 8 Mo</small></div>
-              <a class="download-action" data-kordz-platform="windows" href="https://github.com/fredrcraptor-cmd/kordz/releases" rel="noopener noreferrer" aria-label="Consulter les téléchargements Windows de Kord’z">À venir</a>
+              <div><strong>Windows 64 bits</strong><small>Version 4.9.18 · Kordz.exe · 8,3 Mo</small></div>
+              <a class="download-action is-ready" data-kordz-platform="windows" href="https://github.com/fredrcraptor-cmd/kordz/releases/download/v4.9.18/Kordz.exe" rel="noopener noreferrer" aria-label="Télécharger Kord’z 4.9.18 pour Windows 64 bits">Télécharger ↓</a>
             </div>
             <div class="download-panel">
               <span class="device-icon" aria-hidden="true">▯</span>
-              <div><strong>Android</strong><small>Version 4.9.18 · APK · 2,2 Mo</small></div>
-              <a class="download-action" data-kordz-platform="android" href="https://github.com/fredrcraptor-cmd/kordz/releases" rel="noopener noreferrer" aria-label="Consulter les téléchargements Android de Kord’z">À venir</a>
+              <div><strong>Android</strong><small>Version 4.9.18 · APK · 2,3 Mo</small></div>
+              <a class="download-action is-ready" data-kordz-platform="android" href="https://github.com/fredrcraptor-cmd/kordz/releases/download/v4.9.18/kordz4918.apk" rel="noopener noreferrer" aria-label="Télécharger Kord’z 4.9.18 pour Android">Télécharger ↓</a>
             </div>
-            <p class="download-note" id="downloadStatus" role="status" aria-live="polite">Les téléchargements seront activés dès la publication des fichiers officiels sur GitHub.</p>
+            <p class="download-note" id="downloadStatus" role="status" aria-live="polite">Téléchargements officiels Kord’z 4.9.18 disponibles pour Windows et Android. Fichiers hébergés sur GitHub Releases.</p>
             <p class="download-note download-help">Windows : lancer Kordz.exe. Android : télécharger puis ouvrir le fichier APK ; Android peut demander l'autorisation d'installer une application provenant du navigateur.</p>
           </div>
         </div>
@@ -246,43 +246,7 @@ const contactEmail = (window.KORDZ_CONFIG && window.KORDZ_CONFIG.email || '').tr
 if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) {
   document.querySelectorAll('[data-contact-address]').forEach(el => el.textContent = contactEmail);
   document.querySelectorAll('[data-contact-link]').forEach(el => {
-    el.setAttribute('href', 'mailto:' + contactEmail + '?subject=Contact%20Kord%27z');
-    el.removeAttribute('aria-disabled');
-  });
-}
-
-
-
-
-// Active les boutons uniquement lorsque les installateurs correspondants sont publiés dans une Release GitHub.
-// En cas d'échec réseau ou en l'absence de Release, les visiteurs restent orientés vers la page des versions.
-(async function configureKordzDownloads(){
-  const releasePage = 'https://github.com/fredrcraptor-cmd/kordz/releases';
-  const expected = {windows:'Kordz.exe',android:'kordz4918.apk'};
-  const buttons = [...document.querySelectorAll('[data-kordz-platform]')];
-  const status = document.getElementById('downloadStatus');
-  if (!buttons.length) return;
-  try {
-    const response = await fetch('https://api.github.com/repos/fredrcraptor-cmd/kordz/releases/latest',{
-      headers:{'Accept':'application/vnd.github+json'}
-    });
-    if (!response.ok) return;
-    const release = await response.json();
-    if (!release || release.draft || release.prerelease || !Array.isArray(release.assets)) return;
-    let available = 0;
-    for (const button of buttons) {
-      const filename = expected[button.dataset.kordzPlatform];
-      const asset = release.assets.find(a => a.name === filename && a.state === 'uploaded' && a.size > 0 && /^https:\/\/github\.com\//.test(a.browser_download_url||''));
-      if (!asset) continue;
-      button.href=asset.browser_download_url;
-      button.textContent='Télécharger ↓';
-      button.classList.add('is-ready');
-      button.setAttribute('aria-label','Télécharger '+filename+' depuis GitHub Releases');
-      available++;
-    }
-    if (status && available === 2) status.textContent='Téléchargements officiels disponibles pour Windows et Android (GitHub Releases).';
-    else if (status && available === 1) status.textContent='Une version est déjà disponible. L’autre téléchargement sera activé prochainement.';
-    for (const button of buttons) if (!button.classList.contains('is-ready')) button.href=releasePage;
+    el.setAttribute('href', 'mailon.href=releasePage;
   } catch (_) {
     // Pas de fausse promesse ni de lien direct non vérifié.
   }
