@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0b0c0d">
-  <meta name="kordz-site-version" content="9.1 - formulaire email sans AJAX">
+  <meta name="kordz-site-version" content="9.2 - secours telechargements et Formspree">
   <meta name="description" content="Kord'z, l'atelier guitare sur Windows et Android : apprenez les accords et les gammes, travaillez votre jeu, créez vos morceaux et vos solos.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Kord’z — Apprends. Joue. Crée.">
@@ -214,15 +214,15 @@
             <p>Retrouve Kord’z 4.9.18 sur ton ordinateur Windows 64 bits et sur ton téléphone ou ta tablette Android.</p>
           </div>
           <div class="download-panels">
-            <div class="kordz-email-gate" id="kordz-email-gate">
+            <div class="kordz-email-gate" id="kordz-email-gate" hidden>
               <p class="kordz-gate-kicker">KORD’Z 4.9.18 · ACCÈS GRATUIT</p>
               <h3>Débloque tes téléchargements.</h3>
               <p>Renseigne ton adresse e-mail pour accéder immédiatement aux versions Windows et Android, sans créer de compte.</p>
-              <form id="kordz-email-form" method="POST" action="https://formsubmit.co/kordzguitar@gmail.com">
+              <form id="kordz-email-form" method="POST" action="#telecharger">
                 <input type="hidden" name="_subject" value="Kord’z - demande de téléchargement 4.9.18">
-                <input type="hidden" name="_next" value="https://fredrcraptor-cmd.github.io/kordz/?kordz_access=ok#telecharger">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_url" value="https://fredrcraptor-cmd.github.io/kordz/">
+                
+                
+                
                 <input type="hidden" name="demande" value="Accès gratuit aux téléchargements Windows et Android - sans abonnement newsletter">
                 <label class="kordz-gate-label" for="kordz-download-email">Ton adresse e-mail</label>
                 <div class="kordz-gate-fields">
@@ -230,17 +230,18 @@
                   <button type="submit" id="kordz-gate-submit">Accéder aux téléchargements ↓</button>
                 </div>
                 <div class="kordz-gate-honeypot" aria-hidden="true"><label for="kordz-gate-honey">Laisser ce champ vide</label><input type="text" id="kordz-gate-honey" name="_honey" tabindex="-1" autocomplete="off"></div>
-                <p class="kordz-gate-privacy" id="kordz-gate-privacy">Ton e-mail est transmis au service FormSubmit et à l'éditeur de Kord’z pour enregistrer ta demande d'accès. Il ne sert pas à t'inscrire à une newsletter. <a href="#confidentialite">Voir la politique de confidentialité</a>.</p>
+                <p class="kordz-gate-privacy" id="kordz-gate-privacy">Ton e-mail sera transmis au service Formspree et à l'éditeur de Kord’z pour enregistrer ta demande d'accès. Il ne sert pas à t'inscrire à une newsletter. <a href="#confidentialite">Voir la politique de confidentialité</a>.</p>
                 <p class="kordz-gate-status" id="kordz-gate-status" role="status" aria-live="polite">Après envoi, tu reviendras sur Kord’z avec les boutons de téléchargement affichés. Lors du premier essai, l’éditeur du site doit activer le formulaire depuis sa boîte e-mail.</p>
               </form>
             </div>
-            <div class="kordz-gate-success" id="kordz-gate-success" role="status" aria-live="polite" hidden><strong>Accès ouvert !</strong> Choisis maintenant ta version Windows ou Android ci-dessous.</div>
-            <div class="download-panel" hidden>
+            <div class="kordz-gate-success" id="kordz-gate-success" role="status" aria-live="polite" hidden><strong>Adresse enregistrée !</strong> Choisis maintenant ta version Windows ou Android ci-dessous.</div>
+            <p id="kordz-gate-fallback" class="download-note" role="status">L’inscription par e-mail est momentanément indisponible. Les téléchargements restent libres et gratuits.</p>
+            <div class="download-panel">
               <span class="device-icon" aria-hidden="true">▣</span>
               <div><strong>Windows 64 bits</strong><small>Version 4.9.18 · Kordz.exe · 8,3 Mo</small></div>
               <a class="download-action is-ready" data-kordz-platform="windows" href="https://github.com/fredrcraptor-cmd/kordz/releases/download/v4.9.18/Kordz.exe" rel="noopener noreferrer" aria-label="Télécharger Kord’z 4.9.18 pour Windows 64 bits">Télécharger ↓</a>
             </div>
-            <div class="download-panel" hidden>
+            <div class="download-panel">
               <span class="device-icon" aria-hidden="true">▯</span>
               <div><strong>Android</strong><small>Version 4.9.18 · APK · 2,3 Mo</small></div>
               <a class="download-action is-ready" data-kordz-platform="android" href="https://github.com/fredrcraptor-cmd/kordz/releases/download/v4.9.18/kordz4918.apk" rel="noopener noreferrer" aria-label="Télécharger Kord’z 4.9.18 pour Android">Télécharger ↓</a>
@@ -255,7 +256,7 @@
               </div>
               <p class="kordz-stats-note" id="kordz-stats-status" role="status" aria-live="polite">Chargement des statistiques GitHub…</p>
             </div>
-            <p class="download-note" id="downloadStatus" role="status" aria-live="polite">Versions officielles Kord’z 4.9.18 disponibles sur GitHub Releases après saisie d’une adresse e-mail.</p>
+            <p class="download-note" id="downloadStatus" role="status" aria-live="polite">Versions officielles Kord’z 4.9.18 disponibles sur GitHub Releases.</p>
             <p class="download-note download-help">Windows : lancer Kordz.exe. Android : télécharger puis ouvrir le fichier APK ; Android peut demander l'autorisation d'installer une application provenant du navigateur.</p>
           </div>
         </div>
@@ -298,13 +299,14 @@
     <h2>Responsable du contact</h2>
     <p>Le site est édité à titre non professionnel sous le nom du projet <strong>Kord’z</strong>. Pour toute question relative aux données personnelles communiquées au projet, écris à <a href="mailto:kordzguitar@gmail.com">kordzguitar@gmail.com</a>.</p>
     <h2>Navigation et hébergement</h2>
-    <p>Le site est statique : il ne propose pas de compte utilisateur et n’intègre ni publicité ni outil publicitaire de suivi. Le formulaire d’accès aux téléchargements est décrit ci-dessous. Il n’installe pas de cookie de suivi. Un indicateur technique conservé dans le stockage local de ton navigateur évite de te redemander ton e-mail après un accès réussi ; il ne contient pas ton adresse e-mail. Tu peux le supprimer en effaçant les données du site dans ton navigateur. L’hébergeur GitHub peut traiter des données techniques de connexion, notamment l’adresse IP, conformément à ses propres règles.</p>
+    <p>Le site est statique : il ne propose pas de compte utilisateur et n’intègre ni publicité ni outil publicitaire de suivi. Le formulaire éventuel d’accès aux téléchargements est décrit ci-dessous. Il n’installe pas de cookie de suivi. Un indicateur technique conservé dans le stockage local de ton navigateur évite de te redemander ton e-mail après un accès réussi ; il ne contient pas ton adresse e-mail. Tu peux le supprimer en effaçant les données du site dans ton navigateur. L’hébergeur GitHub peut traiter des données techniques de connexion, notamment l’adresse IP, conformément à ses propres règles.</p>
     <p>Les téléchargements redirigent vers GitHub Releases. Le compteur du site interroge l’API publique de GitHub pour obtenir les nombres de téléchargements des deux fichiers. Cette requête peut transmettre à GitHub des données techniques de connexion, notamment l’adresse IP ; aucun profilage ni cookie de suivi n’est ajouté par Kord’z à cette fin. Consulte la <a href="https://docs.github.com/fr/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">politique de confidentialité de GitHub</a> pour les traitements réalisés par cette plateforme.</p>
 
-    <h2>Adresse e-mail pour télécharger Kord’z</h2>
-    <p>Pour afficher les boutons Windows et Android, le site te demande une adresse e-mail. Cette adresse sert uniquement à enregistrer ta demande d’accès aux téléchargements et à en suivre la diffusion ; elle n’est pas utilisée pour t’inscrire à une newsletter ou t’envoyer de la publicité. Aucune confirmation de l’adresse n’est demandée au visiteur.</p>
-    <p>Le formulaire transmet l’adresse saisie et des informations techniques nécessaires à la soumission au prestataire <a href="https://formsubmit.co/" target="_blank" rel="noopener noreferrer">FormSubmit</a>, qui fait parvenir l’adresse à la messagerie du projet <a href="mailto:kordzguitar@gmail.com">kordzguitar@gmail.com</a>. FormSubmit indique conserver les soumissions jusqu’à 30 jours. Le responsable du projet doit supprimer les e-mails reçus devenus inutiles, avec un objectif de conservation maximale de 12 mois. Pour exercer tes droits ou demander une suppression anticipée, contacte l’adresse du projet. Consulte aussi la <a href="https://formsubmit.co/privacy.pdf" target="_blank" rel="noopener noreferrer">politique de confidentialité de FormSubmit</a>.</p>
-    <p>Le téléchargement reste hébergé publiquement sur GitHub Releases. Ce formulaire régule l’affichage des boutons sur le site, mais ne verrouille pas les fichiers à l’extérieur du site.</p>
+    <h2>Adresse e-mail et téléchargements</h2>
+    <p>Lorsque le formulaire d’inscription n’est pas actif, les téléchargements sont accessibles directement et aucune adresse e-mail n’est envoyée via ce formulaire.</p>
+    <p>Lorsque le formulaire est actif, l’adresse saisie est transmise au prestataire <a href="https://formspree.io/" target="_blank" rel="noopener noreferrer">Formspree</a> et au projet Kord’z (<a href="mailto:kordzguitar@gmail.com">kordzguitar@gmail.com</a>) pour enregistrer la demande de téléchargement et suivre la diffusion du logiciel. Elle n’est pas utilisée pour une newsletter ou de la publicité. Cette collecte ne vérifie pas la propriété de l’adresse.</p>
+    <p>Le responsable du site s’engage à supprimer les adresses devenues inutiles, avec un objectif de conservation maximale de 12 mois. Pour demander leur suppression ou exercer tes autres droits, écris à l’adresse de contact. Consulte également la <a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener noreferrer">politique de confidentialité de Formspree</a>.</p>
+    <p>Les fichiers restent hébergés publiquement sur GitHub Releases. Le formulaire limite l’affichage des boutons sur le site, mais ne verrouille pas les fichiers.</p>
     <h2>Échanges par e-mail</h2>
     <p>Si tu écris à <a href="mailto:kordzguitar@gmail.com">kordzguitar@gmail.com</a>, ton adresse e-mail et les informations figurant dans ton message servent au traitement de ta demande et à la réponse qui peut lui être donnée. Il n’existe pas de formulaire de contact sur le site : l’échange passe par les services de messagerie utilisés. La durée de conservation de ces échanges doit rester limitée à ce qui est nécessaire à leur traitement et à leurs éventuelles suites.</p>
     <h2>Exercer tes droits</h2>
@@ -319,7 +321,9 @@
    Pour changer l'adresse, modifie seulement la valeur email ci-dessous.
 */
 window.KORDZ_CONFIG = {
-  email: "kordzguitar@gmail.com"
+  email: "kordzguitar@gmail.com",
+  // Ajouter ici l’URL du formulaire créée sur Formspree pour activer la collecte.
+  downloadFormEndpoint: ""
 };
 
 'use strict';
@@ -359,31 +363,50 @@ if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) {
 }
 
 
-/* Formulaire d'accès par POST natif : contourne les erreurs CORS du navigateur.
-   Une soumission réussie redirige vers ?kordz_access=ok ; les fichiers GitHub restent publics. */
+/* Accès direct en secours tant qu’aucun formulaire Formspree n’est configuré. */
 (function setupKordzDownloadGate(){
   const gate=document.getElementById('kordz-email-gate');
-  const done=document.getElementById('kordz-gate-success');
-  const downloadPanels=document.querySelectorAll('#telecharger .download-panel');
-  if(!gate||!done||downloadPanels.length!==2)return;
-  const storageKey='kordz-download-access-v1';
-  function unlock(){
-    downloadPanels.forEach(panel=>panel.removeAttribute('hidden'));
+  const form=document.getElementById('kordz-email-form');
+  const success=document.getElementById('kordz-gate-success');
+  const fallback=document.getElementById('kordz-gate-fallback');
+  const status=document.getElementById('kordz-gate-status');
+  const button=document.getElementById('kordz-gate-submit');
+  const panels=document.querySelectorAll('#telecharger .download-panel');
+  if(!gate||!form||!success||!fallback||!status||!button||panels.length!==2)return;
+  const url=String(window.KORDZ_CONFIG&&window.KORDZ_CONFIG.downloadFormEndpoint||'').trim();
+  const active=/^https:\/\/formspree\.io\/f\/[a-z0-9]+$/i.test(url);
+  const key='kordz-download-access-v1';
+  const label=document.getElementById('downloadStatus');
+  function showDownloads(saved){
     gate.hidden=true;
-    done.hidden=false;
-    const info=document.getElementById('downloadStatus');
-    if(info)info.textContent='Téléchargements officiels Kord’z 4.9.18 : choisis Windows ou Android. Fichiers hébergés sur GitHub Releases.';
+    panels.forEach(p=>p.hidden=false);
+    success.hidden=!saved;
+    if(label)label.textContent='Téléchargements officiels Kord’z 4.9.18 pour Windows et Android.';
   }
-  const url=new URL(window.location.href);
-  const wasRedirected=url.searchParams.get('kordz_access')==='ok';
-  if(wasRedirected){
-    try{localStorage.setItem(storageKey,'ok');}catch(_error){}
-    url.searchParams.delete('kordz_access');
-    try{window.history.replaceState(null,'',url.pathname+url.search+url.hash);}catch(_error){}
-    unlock();
-    return;
-  }
-  try{if(localStorage.getItem(storageKey)==='ok')unlock();}catch(_error){}
+  if(!active){fallback.hidden=false;showDownloads(false);return;}
+  fallback.hidden=true;
+  try{if(localStorage.getItem(key)==='ok'){showDownloads(true);return;}}catch(_error){}
+  gate.hidden=false;
+  panels.forEach(p=>p.hidden=true);
+  form.action=url;
+  if(label)label.textContent='Renseigne ton adresse e-mail pour accéder aux téléchargements.';
+  form.addEventListener('submit',async event=>{
+    event.preventDefault();
+    if(!form.reportValidity())return;
+    button.disabled=true;
+    status.textContent='Enregistrement de ton adresse…';
+    try{
+      const response=await fetch(url,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
+      if(!response.ok)throw new Error('Enregistrement impossible');
+      try{localStorage.setItem(key,'ok');}catch(_error){}
+      showDownloads(true);
+    }catch(_error){
+      status.textContent='L’enregistrement de ton adresse n’a pas été confirmé. Tu peux tout de même télécharger Kord’z ci-dessous.';
+      fallback.hidden=false;
+      fallback.textContent='Service d’inscription indisponible : téléchargements libres sans enregistrement confirmé.';
+      panels.forEach(p=>p.hidden=false);
+    }finally{button.disabled=false;}
+  });
 })();
 
 /* Statistiques publiques GitHub Releases. Aucun cookie, aucun suivi individuel. */
