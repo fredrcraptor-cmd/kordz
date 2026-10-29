@@ -246,11 +246,10 @@ const contactEmail = (window.KORDZ_CONFIG && window.KORDZ_CONFIG.email || '').tr
 if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)) {
   document.querySelectorAll('[data-contact-address]').forEach(el => el.textContent = contactEmail);
   document.querySelectorAll('[data-contact-link]').forEach(el => {
-    el.setAttribute('href', 'mailon.href=releasePage;
-  } catch (_) {
-    // Pas de fausse promesse ni de lien direct non vérifié.
-  }
-})();
+    el.setAttribute('href', 'mailto:' + contactEmail + '?subject=Contact%20Kord%27z');
+    el.removeAttribute('aria-disabled');
+  });
+}
 </script>
 </body>
 </html>
