@@ -1,0 +1,44 @@
+KORD’Z — SITE COMPLET POUR GITHUB PAGES — V7
+=================================================
+
+ADRESSE DU SITE
+https://fredrcraptor-cmd.github.io/kordz-site/
+
+CE DOSSIER CONTIENT LE SITE ENTIER.
+- index.html : pages, mise en forme, logo, 5 vraies captures Kord'z 4.9.18, galerie, adresse e-mail. AUCUN autre fichier n'est requis pour l'affichage.
+- .nojekyll : désactive le traitement Jekyll de GitHub Pages (optionnel).
+
+IMPORTANT : N'ENVOIE PAS LE ZIP SUR GITHUB ET N'ENVOIE PAS LE DOSSIER PARENT !
+
+MISE EN LIGNE (méthode recommandée)
+1. Télécharge Kordz_SITE_COMPLET_GITHUB.zip puis décompresse-le sur ton ordinateur.
+2. Va sur https://github.com/fredrcraptor-cmd/kordz-site
+3. Ouvre l'onglet Code. Vérifie que tu es sur la branche main.
+4. Clique sur Add file > Upload files.
+5. Depuis le dossier décompressé, sélectionne index.html et .nojekyll (si Windows cache ce dernier, index.html seul suffit).
+6. Valide via Commit changes directement sur main.
+7. Dans Settings > Pages, sous Build and deployment, choisis :
+       Source : Deploy from a branch
+       Branch : main
+       Folder : /(root)
+   Puis clique sur Save. Si ces réglages sont déjà présents, ne les change pas.
+8. Va dans Actions et vérifie le dernier travail "pages build and deployment" (coche verte).
+9. Ouvre https://fredrcraptor-cmd.github.io/kordz-site/?v=7
+
+COMMENT SAVOIR SI C'EST LE BON FICHIER ?
+La page d'accueil porte la mention : "KORD’Z 4.9.18 · SITE V7".
+
+SI TU VOIS ENCORE UNE ERREUR 404
+- Vérifie que le dépôt GitHub existe à l'URL ci-dessus et est PUBLIC pour un compte GitHub Free.
+- Vérifie que le nom du dépôt est exactement kordz-site (tiret, pas underscore).
+- Vérifie que index.html est directement à la racine du dépôt, à côté du README éventuel, et pas dans Kordz_SITE_COMPLET_GITHUB/index.html.
+- Vérifie que Pages utilise bien main et /(root), pas /docs ou une autre branche.
+- Vérifie dans Actions qu'il n'y a pas de croix rouge de déploiement.
+- Ne confonds pas l'URL du site avec l'URL du dépôt : GitHub Pages se trouve à https://fredrcraptor-cmd.github.io/kordz-site/
+- Après un déploiement réussi, réessaie le lien avec ?v=7 pour éviter l'ancien cache.
+- Si rien n'a changé, envoie une capture de l'onglet Code et de Settings > Pages.
+
+Ce paquet n'ajoute pas d'installateurs Windows ou APK. Les boutons de téléchargement sont volontairement indiqués "Lien à venir".
+Les mentions légales restent à compléter avant la diffusion commerciale ou publique à grande échelle.
+
+SUPPORT : kordzguitar@gmail.com
